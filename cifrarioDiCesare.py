@@ -8,3 +8,17 @@ for lettera in parola:
     #print(dizonario[lettera], end="")
 
 print(parola2)
+
+decodificatore = {} #dizionario vuoto
+
+#decodificare messaggio
+for k,v in dizonario.items():  #ciclo for su 2 elementi
+    decodificatore[v] = k
+
+messagioOrig = ""
+
+#ristampa messaggio
+for lettera in parola2:
+    messagioOrig += decodificatore[lettera]
+
+print(f"messaggio decodificato: {messagioOrig}")
