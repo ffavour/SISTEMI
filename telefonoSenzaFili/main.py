@@ -6,7 +6,7 @@ myAddress = ("192.168.1.129", 8000)
 server.bind(myAddress)
 
 client = sck.socket(sck.AF_INET, sck.SOCK_DGRAM)
-serverAddress = ("192.168.1.126", 8000)
+serverAddress = ("192.168.1.126", 8000)  # ip del prossimo server a cui invio
 
 
 while(True):
