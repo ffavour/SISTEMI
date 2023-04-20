@@ -1,18 +1,27 @@
-import socket
+import socket as sck
 
 
-def main():
-    s1 = socket.socket(socket.AF_INET, socket.SOCK_DGRAM)  # socket per ricevere
-    s2 = socket.socket(socket.AF_INET, socket.SOCK_DGRAM)  # socket per inviare
+server = sck.socket(sck.AF_INET, sck.SOCK_DGRAM)
 
-    myAddress = ("0.0.0.0", 5000)
-    s1.bind(myAddress)
+myAddress = ("192.168.1.129", 8000)
+server.bind(myAddress)
 
-    while True:
-        mexRicevuto, address = s1.recvfrom(4096)
-        print(f"ricevuto: {mexRicevuto.decode()} da {address}")
-        s2.sendto(mexRicevuto, "127.0.0.1")
+client = sck.socket(sck.AF_INET, sck.SOCK_DGRAM)
+serverAddress = ("192.168.1.126", 8000)
 
 
-if __name__ == "__main__":
-    main()
+while(True):
+    textRecieved, address = server.recvfrom(4096)
+    print(f"ricevuto {textRecieved.decode()} da {address}")
+    # server.sendto(b"bellaFra",address)
+    input("premere per trasmettere")
+    print(textRecieved, serverAddress)
+    client.sendto(textRecieved, serverAddress)
+
+
+
+
+
+
+server.close()
+client.close()
