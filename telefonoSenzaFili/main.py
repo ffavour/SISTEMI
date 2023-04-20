@@ -2,7 +2,6 @@ import socket as sck
 
 
 server = sck.socket(sck.AF_INET, sck.SOCK_DGRAM)
-
 myAddress = ("192.168.1.129", 8000)
 server.bind(myAddress)
 
@@ -17,11 +16,6 @@ while(True):
     input("premere per trasmettere")
     print(textRecieved, serverAddress)
     client.sendto(textRecieved, serverAddress)
-
-
-
-
-
 
 server.close()
 client.close()
