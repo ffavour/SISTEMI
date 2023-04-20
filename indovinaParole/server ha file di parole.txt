@@ -1,0 +1,20 @@
+server ha file di parole
+
+parte leggendo file e sorteggia una parola
+
+client devono indovinara la parola che server ha estratto
+
+server fa controllo sulla parola
+
+server risponde quali sono le lettere giuste la posto giusto (dove sono sbagliate mette underscore)
+
+es. parola server: scuola
+   parola client1: strada
+
+   risposta client2: ciao
+   risposta server: _ _ _ o _ _
+ 
+
+primo client che indovina la parola riceve messaggio "hai vinto"!
+
+feature aggiuntive: numero tentaivi, dopo n.tentativi game over
