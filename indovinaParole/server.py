@@ -8,13 +8,6 @@ def sorteggiaParola(lista):
     return parolaEstratta
 
 
-def creaLista(parola):
-    lista = []
-    for lettera in parola:
-        lista.append(lettera)
-    return lista
-
-
 def creaParola(lista):
     parola = ""
     for lettera in lista:
@@ -77,9 +70,6 @@ def main():
     myAddress = ("127.0.0.1", 8000)  # ip server
     server.bind(myAddress)
 
-    client = sck.socket(sck.AF_INET, sck.SOCK_DGRAM)
-    serverAddress = ("127.0.0.1", 8000)
-
     listaParole = ["scuola", "gioco", "alfabeto", "penna", "pugno", "cane"]
     parolaSort = sorteggiaParola(listaParole)
     print(parolaSort)
@@ -96,7 +86,7 @@ def main():
         server.sendto(output.encode(), address)  # manda parola di output
 
         if controlloVittoria(parolaClient.decode(), output):
-            s = "hai vinto"
+            s = "hai vinto!"
             server.sendto(s.encode(), address)  # mex di vittoria
             break
         elif nTentativi <= 1 and not controlloVittoria(parolaClient.decode(), output):
@@ -109,6 +99,8 @@ def main():
             server.sendto(s.encode(), address)  # riprova
 
         nTentativi -= 1
+
+    server.close()
 
 
 if __name__ == "__main__":
