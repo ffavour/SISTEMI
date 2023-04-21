@@ -11,7 +11,8 @@ def sorteggiaParola(lista):
 def creaParola(lista):
     parola = ""
     for lettera in lista:
-        parola += lettera
+        if lettera != "]" and lettera != "[" and lettera != "'":
+            parola += lettera
     return parola
 
 
@@ -59,20 +60,45 @@ def gioco(nTentativi, parolaSort):  # gioco senza socket
         output = confrontaParole(parolaInserita, parolaSort)
         print(output)
         nTentativi -= 1
-        if controlloVittoria(parolaInserita, output) or nTentativi <= 0:
-            if nTentativi <= 0:
-                print(f"hai perso\nla parola era: {parolaSort}")
+        if not controlloVittoria(parolaInserita, output) and nTentativi < 1:
+            print(f"hai perso\nla parola era: {parolaSort}")
+            break
+        elif controlloVittoria(parolaInserita, output):
             break
 
+def leggiFile():
+    listaParole = []
+
+    file = open("./listaParole.txt")
+    listaParoleTemp = file.readlines()
+    file.close()
+
+    # print(listaParoleTemp)
+
+    for riga in listaParoleTemp:
+        riga_senza_linefeed = riga[:-1]  # senza messa a capo
+        listaCampi = riga_senza_linefeed.split(",")  # fa lavoro strtok in
+        listaParole.append(listaCampi[0])
+        #creaParola(listaCampi)
+        #print(listaCampi[0])
+    #print(listaParole)
+
+    return listaParole
 
 def main():
     server = sck.socket(sck.AF_INET, sck.SOCK_DGRAM)
     myAddress = ("127.0.0.1", 8000)  # ip server
     server.bind(myAddress)
 
-    listaParole = ["scuola", "gioco", "alfabeto", "penna", "pugno", "cane"]
+    # non serve è di prova
+    listaParole2 = ["scuola", "gioco", "alfabeto", "penna", "pugno", "cane"]
+    parolaSort2 = sorteggiaParola(listaParole2)
+
+    listaParole = leggiFile()
     parolaSort = sorteggiaParola(listaParole)
-    # print(parolaSort)  # la parola sorteggiata
+    # print(listaParole)
+
+    print(parolaSort)  # la parola sorteggiata
 
     nTentativi = 3  # numero di tentativi per indovinare la parola
     # gioco(nTentativi, parolaSort)
