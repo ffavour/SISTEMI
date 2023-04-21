@@ -66,6 +66,10 @@ def gioco(nTentativi, parolaSort):  # gioco senza socket
         elif controlloVittoria(parolaInserita, output):
             break
 
+
+
+
+
 def leggiFile():
     listaParole = []
 
@@ -85,6 +89,16 @@ def leggiFile():
 
     return listaParole
 
+def gestioneLivelli(listaLivelli, livello, lenParola):
+    if livello == 1 and listaLivelli[0] < lenParola <= listaLivelli[1]:
+        return True
+    elif livello == 2 and listaLivelli[1] < lenParola < listaLivelli[2]:
+        return True
+    elif livello == 3 and lenParola >= listaLivelli[2]:
+        return True
+    else:
+        return False
+
 def main():
     server = sck.socket(sck.AF_INET, sck.SOCK_DGRAM)
     myAddress = ("127.0.0.1", 8000)  # ip server
@@ -103,9 +117,19 @@ def main():
     nTentativi = 3  # numero di tentativi per indovinare la parola
     # gioco(nTentativi, parolaSort)
 
+    listaLunghezze = [4, 7, 10]
+
     while nTentativi > 0:
+        livelloClient, address = server.recvfrom(4096)  # riceve livello da client
+        print(f"livello: {int(livelloClient)} del client{address}")
+
+        if not gestioneLivelli(listaLunghezze, livelloClient, len(parolaSort)):
+            parolaSort = sorteggiaParola(listaParole)
+
+        print(parolaSort)
+
         parolaClient, address = server.recvfrom(4096)
-        print(f"parola client: {parolaClient.decode()}")
+        print(f"parola client {address}: {parolaClient.decode()}")
         output = confrontaParole(parolaClient.decode(), parolaSort)
 
         print(output)
