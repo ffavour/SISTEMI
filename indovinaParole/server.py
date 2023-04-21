@@ -90,14 +90,16 @@ def leggiFile():
     return listaParole
 
 def gestioneLivelli(listaLivelli, livello, lenParola):
-    if livello == 1 and listaLivelli[0] < lenParola <= listaLivelli[1]:
-        return True
+    if livello == 1 and listaLivelli[0] <= lenParola <= listaLivelli[1] or lenParola <= listaLivelli[0]:
+        ok = True
     elif livello == 2 and listaLivelli[1] < lenParola < listaLivelli[2]:
-        return True
+        ok = True
     elif livello == 3 and lenParola >= listaLivelli[2]:
-        return True
+        ok = True
     else:
-        return False
+        ok = False
+
+    return ok
 
 def main():
     server = sck.socket(sck.AF_INET, sck.SOCK_DGRAM)
@@ -117,14 +119,15 @@ def main():
     nTentativi = 3  # numero di tentativi per indovinare la parola
     # gioco(nTentativi, parolaSort)
 
-    listaLunghezze = [4, 7, 10]
+    listaLunghezze = [4, 6, 10]
 
     while nTentativi > 0:
         livelloClient, address = server.recvfrom(4096)  # riceve livello da client
         print(f"livello: {int(livelloClient)} del client{address}")
 
-        if not gestioneLivelli(listaLunghezze, livelloClient, len(parolaSort)):
-            parolaSort = sorteggiaParola(listaParole)
+        # da controllare
+        """if not gestioneLivelli(listaLunghezze, int(livelloClient), len(parolaSort)):
+            parolaSort = sorteggiaParola(listaParole)"""
 
         print(parolaSort)
 
