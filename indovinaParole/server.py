@@ -72,7 +72,7 @@ def main():
 
     listaParole = ["scuola", "gioco", "alfabeto", "penna", "pugno", "cane"]
     parolaSort = sorteggiaParola(listaParole)
-    print(parolaSort)
+    # print(parolaSort)  # la parola sorteggiata
 
     nTentativi = 3  # numero di tentativi per indovinare la parola
     # gioco(nTentativi, parolaSort)
