@@ -17,4 +17,4 @@ es. parola server: scuola
 
 primo client che indovina la parola riceve messaggio "hai vinto"!
 
-feature aggiuntive: numero tentaivi, dopo n.tentativi game over
+feature aggiuntive: numero tentaivi, dopo n.tentativi game over, => livello di difficolta (va in base a lunghezza delle parole)
