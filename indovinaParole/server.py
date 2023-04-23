@@ -67,9 +67,6 @@ def gioco(nTentativi, parolaSort):  # gioco senza socket
             break
 
 
-
-
-
 def leggiFile():
     listaParole = []
 
@@ -89,17 +86,41 @@ def leggiFile():
 
     return listaParole
 
-def gestioneLivelli(listaLivelli, livello, lenParola):
-    if livello == 1 and listaLivelli[0] <= lenParola <= listaLivelli[1] or lenParola <= listaLivelli[0]:
-        ok = True
-    elif livello == 2 and listaLivelli[1] < lenParola < listaLivelli[2]:
-        ok = True
-    elif livello == 3 and lenParola >= listaLivelli[2]:
-        ok = True
-    else:
-        ok = False
+def creaListaPerLivello(livello, lunghezzaParole, listaParole):
+    l = []
+    if livello == 1:
+        for parola in listaParole:
+            if len(parola) <= lunghezzaParole[0]:
+                l.append(parola)
+    elif livello == 2:
+        for parola in listaParole:
+            if lunghezzaParole[0] < len(parola) < lunghezzaParole[1]:
+                l.append(parola)
+    elif livello == 3:
+        for parola in listaParole:
+            if len(parola) >= lunghezzaParole[1]:
+                l.append(parola)
+    return l
 
-    return ok
+def ricercaParolaNellaLista(parolaRicercata, listaLivello):
+    trovato = False
+    parola = ""
+    k = 0
+    while k < len(listaLivello) and trovato == False:
+        if parolaRicercata == listaLivello[k]:
+            trovato = True
+            break
+        k += 1
+
+    if trovato == False:
+        parola = sorteggiaParola(listaLivello)
+    else:
+        parola = parolaRicercata
+
+    return parola
+
+
+
 
 def main():
     server = sck.socket(sck.AF_INET, sck.SOCK_DGRAM)
@@ -119,17 +140,30 @@ def main():
     nTentativi = 3  # numero di tentativi per indovinare la parola
     # gioco(nTentativi, parolaSort)
 
-    listaLunghezze = [4, 6, 10]
+    listaLughezze = [4, 7]
+    # print(f"{listaLughezze[0]}  {listaLughezze[1]}")
+
+    listaLivello1 = creaListaPerLivello(1, listaLughezze, listaParole)
+    #print(f"livello 1: {listaLivello1}")
+    listaLivello2 = creaListaPerLivello(2, listaLughezze, listaParole)
+    #print(f"livello 2: {listaLivello2}")
+    listaLivello3 = creaListaPerLivello(3, listaLughezze, listaParole)
+    #print(f"livello 3: {listaLivello3}")
 
     while nTentativi > 0:
         livelloClient, address = server.recvfrom(4096)  # riceve livello da client
         print(f"livello: {int(livelloClient)} del client{address}")
 
-        # da controllare
-        """if not gestioneLivelli(listaLunghezze, int(livelloClient), len(parolaSort)):
-            parolaSort = sorteggiaParola(listaParole)"""
-
+        # controlla lunghezza parola in base al livello
+        listaLivelloSel = []
+        if int(livelloClient) == 1:
+            parolaSort = ricercaParolaNellaLista(parolaSort, listaLivello1)
+        elif int(livelloClient) == 2:
+            parolaSort = ricercaParolaNellaLista(parolaSort, listaLivello2)
+        elif int(livelloClient) == 3:
+            parolaSort = ricercaParolaNellaLista(parolaSort, listaLivello3)
         print(parolaSort)
+
 
         parolaClient, address = server.recvfrom(4096)
         print(f"parola client {address}: {parolaClient.decode()}")
