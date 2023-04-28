@@ -140,7 +140,7 @@ def main():
     nTentativi = 3  # numero di tentativi per indovinare la parola
     # gioco(nTentativi, parolaSort)
 
-    listaLughezze = [4, 7]
+    listaLughezze = [4, 7]  # lista per le lunghezze dei vari livelli
     # print(f"{listaLughezze[0]}  {listaLughezze[1]}")
 
     listaLivello1 = creaListaPerLivello(1, listaLughezze, listaParole)
@@ -162,7 +162,7 @@ def main():
             parolaSort = ricercaParolaNellaLista(parolaSort, listaLivello2)
         elif int(livelloClient) == 3:
             parolaSort = ricercaParolaNellaLista(parolaSort, listaLivello3)
-        print(parolaSort)
+        # print(parolaSort)
 
 
         parolaClient, address = server.recvfrom(4096)
