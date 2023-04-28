@@ -13,7 +13,7 @@ def main():
             break
         s.sendall(mex.encode())
         data = s.recv(4096)
-        print(f"messaggio ricevuto: {data}")
+        print(f"messaggio ricevuto: {data.decode()}")
 
     s.close()
 
