@@ -37,13 +37,12 @@ def main():
         numero_int = int(numero.decode())
         listaFattoriPrimi = trovaFattori(numero_int)
 
-        print(listaFattoriPrimi)
         listaFattoriPrimi_str = str(listaFattoriPrimi)
-        print(listaFattoriPrimi_str)
         mex = "i fattori trovati sono: " + listaFattoriPrimi_str
         print(mex)
 
         s.sendall(mex.encode())
+
 
     s.close()
 

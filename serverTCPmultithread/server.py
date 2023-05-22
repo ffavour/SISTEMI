@@ -25,19 +25,28 @@ dict_integer = {
     5: 344,
     6: 241}
 
+indiceClient = 1
 
-def isPari(n):
-    return n % 2 == 0
+
+def listaIndici():
+    l = []
+    for elementi in dict_integer:
+        l.append(elementi)
+    print(l)
+
 
 
 class ClientThread(threading.Thread):
-    def __init__(self, conn, address, numeroId):
+    def __init__(self, conn, address):
+        global indiceClient
         super().__init__()
         self.conn = conn
         self.address = address
-        self.numeroId = numeroId
+        self.numeroId = indiceClient
+        indiceClient += 1
 
     def run(self):
+
         for i in range(1, 7):
 
             if self.numeroId % 2 == 0 and i % 2 == 0:
@@ -61,14 +70,15 @@ def main():
     s.bind(my_address)
 
     s.listen()
-    # clientList = []
+    clientList = []
 
-    k = 0
+    listaIndici()
+
     while True:
         conn, address = s.accept()
-        client = ClientThread(conn, address, k)
+        client = ClientThread(conn, address)
+        clientList.append(client)
         client.start()
-        k += 1
 
 
 if __name__ == "__main__":
