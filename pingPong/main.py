@@ -1,6 +1,12 @@
+import queue
+
 import pygame
 from paddle import Paddle
 from ball import Ball
+import serial, time
+import pygame as pg
+import threading
+from paddleM import PaddleMicrobit
 
 pygame.init()
 
@@ -23,11 +29,15 @@ ball = Ball(WHITE, 10, 10)
 ball.rect.x = 345
 ball.rect.y = 195
 
+paddleM = PaddleMicrobit('COM6', WHITE, 10, 100)
+paddleM.start()
+
 all_sprites_list = pygame.sprite.Group()
 
-all_sprites_list.add(paddleA)
+# all_sprites_list.add(paddleA)
 all_sprites_list.add(paddleB)
 all_sprites_list.add(ball)
+all_sprites_list.add(paddleM)
 
 carryOn = True
 
@@ -50,9 +60,11 @@ while carryOn:
     if keys[pygame.K_s]:
         paddleA.moveDown(5)
     if keys[pygame.K_UP]:
-        paddleB.moveUp(5)
+        # paddleB.moveUp(5)
+        paddleM.lettura_pulsante()
     if keys[pygame.K_DOWN]:
-        paddleB.moveDown(5)
+        # paddleB.moveDown(5)
+        paddleM.lettura_pulsante()
 
     all_sprites_list.update()
 
@@ -66,6 +78,9 @@ while carryOn:
         ball.velocity[1] = -ball.velocity[1]
     if ball.rect.y < 0:
         ball.velocity[1] = -ball.velocity[1]
+
+    if scoreA >= 10 or scoreB >= 10:
+        carryOn = False
 
     if pygame.sprite.collide_mask(ball, paddleA) or pygame.sprite.collide_mask(ball, paddleB):
         ball.bounce()
