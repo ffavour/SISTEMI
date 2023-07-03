@@ -1,5 +1,3 @@
-import math
-
 """Esercizio 7.1. Copiate il ciclo del Paragrafo 7.5 e incapsulatelo in una funzione di nome mia_radq
 che prenda a come parametro, scelga un valore appropriato di x, e restituisca una stima del valore
 della radice quadrata di a.Quale verifica, scrivete una funzione di nome test_radq che stampi una tabella come questa:
@@ -19,6 +17,7 @@ a   mia_radq(a)   math.sqrt(a)  diff
 La prima colonna è un numero, a; la seconda è la radice quadrata di a calcolata con mia_radq; la
 terza è la radice quadrata calcolata con math.sqrt; la quarta è il valore assoluto della differenza trale due stime
 """
+import math
 
 
 def mia_radq(x):
