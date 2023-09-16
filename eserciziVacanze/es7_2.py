@@ -3,13 +3,11 @@ prenda il dato inserito e lo valuti con eval, infine visualizzi il risultato.
 Deve continuare fino a quando l’utente non scrive 'fatto', e poi restituire il valore dell’ultima
 espressione che ha valutato."""
 
-import math
-
 
 def eval_ciclo():
     val = None
     while True:
-        dato = input("inserire un dato: ")
+        dato = input("inserire un dato (operazione numerica): ")
         if dato == 'fatto':
             break
         val = eval(dato)
@@ -18,8 +16,7 @@ def eval_ciclo():
 
 
 def main():
-    valutazione = eval_ciclo()
-    print(valutazione)
+    print(eval_ciclo())
 
 
 if __name__ == '__main__':

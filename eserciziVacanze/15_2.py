@@ -30,30 +30,31 @@ class Cerchio:
         self.raggio = raggio
 
 
-def disegna_rett(turtle, rettangolo):
-    turtle.penup()
-    turtle.goto(rettangolo.angolo_sup_sx.x, rettangolo.angolo_sup_sx.y)
-    turtle.pendown()
-    turtle.setheading(0)
-    turtle.forward(rettangolo.larghezza)
-    turtle.right(90)
-    turtle.forward(rettangolo.altezza)
-    turtle.right(90)
-    turtle.forward(rettangolo.larghezza)
-    turtle.right(90)
-    turtle.forward(rettangolo.altezza)
+def disegna_rett(t, rettangolo):
+    t.penup()
+    t.goto(rettangolo.angolo_sup_sx.x, rettangolo.angolo_sup_sx.y)
+    t.pendown()
+    t.setheading(0)
+    t.forward(rettangolo.larghezza)
+    t.right(90)
+    t.forward(rettangolo.altezza)
+    t.right(90)
+    t.forward(rettangolo.larghezza)
+    t.right(90)
+    t.forward(rettangolo.altezza)
+    # funzione a effetti collaterali
 
 
-def disegna_cerchio(turtle, cerchio):
-    turtle.penup()
-    turtle.goto(cerchio.centro.x, cerchio.centro.y - cerchio.raggio)
-    turtle.pendown()
-    turtle.setheading(0)
+def disegna_cerchio(t, cerchio):
+    t.penup()
+    t.goto(cerchio.centro.x, cerchio.centro.y - cerchio.raggio)
+    t.pendown()
+    t.setheading(0)
     circonferenza = 2 * math.pi * cerchio.raggio
     lato = circonferenza / 360
     for _ in range(360):
-        turtle.forward(lato)
-        turtle.right(1)
+        t.forward(lato)
+        t.right(1)
 
 
 def main():
