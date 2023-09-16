@@ -14,8 +14,7 @@ def piu_frequente(stringa):
         else:
             frequenze[lettera] = 1
 
-    frequenzeOrdinate = sorted(frequenze)
-    return frequenzeOrdinate
+    return frequenze
 
 
 def main():
