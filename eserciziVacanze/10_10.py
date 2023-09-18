@@ -34,7 +34,7 @@ def main():
     print(ricercaBinaria([1, 3, 4, 5, 7, 9], 5))
 
     parole = leggiFile()
-    # print(parole)
+    print(parole)
 
     pUtente = input("inserire parola da cercare: ")
 
