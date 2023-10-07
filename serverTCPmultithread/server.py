@@ -35,7 +35,6 @@ def listaIndici():
     print(l)
 
 
-
 class ClientThread(threading.Thread):
     def __init__(self, conn, address):
         global indiceClient
